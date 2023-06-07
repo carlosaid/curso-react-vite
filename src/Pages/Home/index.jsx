@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { Layout } from "../../Components/Layout"
 import { Card } from "../../Components/Card/indes"
+import { ProductDetail } from "../../Components/ProductDetail"
 
 function Home() {
   const [items, setItems] = useState(null)
@@ -8,7 +9,6 @@ function Home() {
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
       .then(response => response.json())
-      // .then(data => console.log(data))
       .then(data => setItems(data))
   }, [])
     return (
@@ -22,6 +22,7 @@ function Home() {
               ))
             }
           </div>
+          <ProductDetail />
         </Layout>
       </>
     )
