@@ -89,8 +89,12 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li className='flex items-center'>
-          <ShoppingBagIcon className='w-6 h-6 text-blac'> </ShoppingBagIcon>
-          <div className='bg-green-600 w-6 h-6 border rounded-full items-center text-teal-50 text-center'>
+          <ShoppingBagIcon 
+            className='w-6 h-6 text-blac cursor-pointer'
+            onClick={ () => {context.openCheckSideMenu()}}
+          >
+          </ShoppingBagIcon>
+          <div className='bg-green-600 w-6 h-6 border rounded-full text-center text-teal-50 '>
             {context.count}
           </div>
         </li>
