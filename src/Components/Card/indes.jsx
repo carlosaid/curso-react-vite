@@ -48,7 +48,7 @@ function Card({ data }) {
           {data.category}
         </span>
         <img
-          className="w-full h-full object-cover rounded-lg"
+          className="w-full h-full object-contain rounded-lg"
           src={data.image}
           alt={data.title}
         />
