@@ -1,4 +1,4 @@
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 
 export const ShoppingCartContext = createContext()
 
@@ -16,7 +16,29 @@ export const ShoppingCartProvider = ({ children }) => {
   const [productShow, setProductShow] = useState({})
   const [productToCart, setProductToCart] = useState([])
 
+  
   const [order, setOrder] = useState([])
+  
+  //Get Products
+  const [items, setItems] = useState(null)
+  const [filteredItems, setFilteredItems] = useState(null)
+
+  //Search products by title
+  const [searchByTitle, setSearchByTitle ] = useState(null)
+
+  useEffect(() => {
+    fetch('https://fakestoreapi.com/products')
+      .then(response => response.json())
+      .then(data => setItems(data))
+  }, [])
+
+  const filteredItemsByTitle = (items, searchByTitle) => {
+    return items?.filter( item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()))
+  }
+
+  useEffect( ()=> {
+    if(searchByTitle) setFilteredItems(filteredItemsByTitle(items, searchByTitle))
+  }, [items, searchByTitle])
 
   return (
     <ShoppingCartContext.Provider value={{
@@ -34,7 +56,14 @@ export const ShoppingCartProvider = ({ children }) => {
       openCheckSideMenu,
       closeCheckSideMenu,
       order,
-      setOrder
+      setOrder,
+      items,
+      setItems,
+      searchByTitle,
+      setSearchByTitle,
+      filteredItems,
+      setFilteredItems,
+      filteredItemsByTitle
     }}>
       {children}
     </ShoppingCartContext.Provider>
