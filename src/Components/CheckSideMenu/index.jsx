@@ -25,6 +25,7 @@ function CheckSideMenu() {
 
     context.setOrder([...context.order, orderToAdd])
     context.setProductToCart([])
+    context.setSearchByTitle(null)
   }
 
   return (
