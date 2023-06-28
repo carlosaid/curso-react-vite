@@ -7,6 +7,62 @@ const Navbar = () => {
   const context = useContext(ShoppingCartContext)
   const activeStyle = "underline underline-offset-4";
 
+  //Sign Out
+  const signOut = localStorage.getItem('sign-out')
+  const parsedSignOut = JSON.parse(signOut)
+  const isUserSignOut = context.signOut || parsedSignOut
+  
+  const hadleSignOut = () => {
+    const stringifiedSignOut = JSON.stringify(true)
+    localStorage.setItem('sign-out', stringifiedSignOut)
+    context.setSignOut(true)
+  }
+
+  const renderView = () => {
+    if(isUserSignOut){
+      return(
+        <li>
+          <NavLink
+            to="/SignIn"
+            className={({ isActive }) => (isActive ? activeStyle : undefined)}
+            onClick={()=> hadleSignOut()}>
+            Sign Out
+          </NavLink>
+        </li>
+      )
+    } else {
+      return (
+        <>
+        <li className="text-black/60">
+          correo@gmail.com
+        </li>
+        <li>
+          <NavLink
+            to="/MyOrders"
+            className={({ isActive }) => (isActive ? activeStyle : undefined)}>
+            My Orders
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/MyAccount"
+            className={({ isActive }) => (isActive ? activeStyle : undefined)}>
+            My Account
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/SignIn"
+            className={({ isActive }) => (isActive ? activeStyle : undefined)}
+            onClick={()=> hadleSignOut()}>
+            Sign Out
+          </NavLink>
+        </li>
+        </>
+      )
+    }
+  }
+
   return (
     <nav className="flex justify-between items-center top-0 fixed z-10 w-full py-5 px-8 text-sm font-light">
       <ul className="flex items-center gap-3">
@@ -69,31 +125,7 @@ const Navbar = () => {
         </li>
       </ul>
       <ul className="flex items-center gap-3">
-        <li className="text-black/60">correo@gmail.com</li>
-        <li>
-          <NavLink
-            to="/MyOrders"
-            className={({ isActive }) => (isActive ? activeStyle : undefined)}
-          >
-            My Orders
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/MyAccount"
-            className={({ isActive }) => (isActive ? activeStyle : undefined)}
-          >
-            My Account
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/SignIn"
-            className={({ isActive }) => (isActive ? activeStyle : undefined)}
-          >
-            Sign In
-          </NavLink>
-        </li>
+        {renderView()}
         <li className='flex items-center'>
           <ShoppingBagIcon 
             className='w-6 h-6 text-blac cursor-pointer'
