@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ShoppingBagIcon } from '@heroicons/react/24/solid'
+// import { ShoppingBagIcon, SunIcon, MoonIcon } from '@heroicons/react/24/solid'
 import { NavLink } from "react-router-dom";
 import { ShoppingCartContext } from "../../Context";
 
@@ -11,7 +11,7 @@ const Navbar = () => {
   const signOut = localStorage.getItem('sign-out')
   const parsedSignOut = JSON.parse(signOut)
   const isUserSignOut = context.signOut || parsedSignOut
-  
+
   //Account
   const account = localStorage.getItem('account')
   const parsedAccount = JSON.parse(account)
@@ -27,8 +27,14 @@ const Navbar = () => {
     context.setSignOut(true)
   }
 
+  // const togleTheme = () => {
+  //   context.setTheme(context.theme === 'Light' ? 'Dark' : 'Light')
+  // }
+
+  console.log(context.theme)
+
   const renderView = () => {
-    if(hasUserAnAccount && !isUserSignOut) {
+    if (hasUserAnAccount && !isUserSignOut) {
       return (
         <>
           <li className="text-black/60">
@@ -52,7 +58,7 @@ const Navbar = () => {
             <NavLink
               to="/SignIn"
               className={({ isActive }) => (isActive ? activeStyle : undefined)}
-              onClick={()=> hadleSignOut()}>
+              onClick={() => hadleSignOut()}>
               Sign Out
             </NavLink>
           </li>
@@ -64,7 +70,7 @@ const Navbar = () => {
           <NavLink
             to="/SignIn"
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
-            onClick={()=> hadleSignOut()}>
+            onClick={() => hadleSignOut()}>
             Sign In
           </NavLink>
         </li>
@@ -73,7 +79,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="flex justify-between items-center top-0 fixed z-10 w-full py-5 px-8 text-sm font-light">
+    <nav className={`flex justify-between items-center top-0 fixed z-10 w-full py-5 px-8 text-sm font-light shadow-sm ${context.theme === 'Dark' ? 'bg-black text-white' : 'bg-white'}`}>
       <ul className="flex items-center gap-3">
         <li className="font-semibold text-lg">
           <NavLink to={`${isUserSignOut ? '/SignIn' : '/'}`}>
@@ -83,7 +89,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to="/"
-            onClick={()=> context.setSearchByCategory()}
+            onClick={() => context.setSearchByCategory()}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             All
@@ -92,7 +98,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to="/clothes"
-            onClick={()=> context.setSearchByCategory('clothing')}
+            onClick={() => context.setSearchByCategory('clothing')}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Clothes
@@ -101,7 +107,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to="/electronics"
-            onClick={()=> context.setSearchByCategory('electronics')}
+            onClick={() => context.setSearchByCategory('electronics')}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Electronics
@@ -110,7 +116,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to="/furnitures"
-            onClick={()=> context.setSearchByCategory('furnitures')}
+            onClick={() => context.setSearchByCategory('furnitures')}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Furnitures
@@ -119,7 +125,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to="/toys"
-            onClick={()=> context.setSearchByCategory('toys')}
+            onClick={() => context.setSearchByCategory('toys')}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Toys
@@ -128,7 +134,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to="/others"
-            onClick={()=> context.setSearchByCategory('others')}
+            onClick={() => context.setSearchByCategory('others')}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Others
@@ -136,14 +142,36 @@ const Navbar = () => {
         </li>
       </ul>
       <ul className="flex items-center gap-3">
+        {/* <li className='flex items-center'>
+          {context.theme === 'Light' ? 
+            (
+              <SunIcon className= 'w-6 h-6 text-black mr-2' onClick={togleTheme}/>
+            ) :
+            (
+              <MoonIcon className='w-6 h-6 text-white mr-2'onClick={togleTheme} />
+            )
+          }
+          <select 
+            value={context.theme}
+            onChange={(e)=> context.setTheme(e.target.value)} 
+            className='focus:outline-none w-14'
+          >
+            <option value='Light'>
+              Light
+            </option>
+            <option value='Dark'>
+              Dark
+            </option>
+          </select>
+        </li> */}
         {renderView()}
         <li className='flex items-center'>
-          <ShoppingBagIcon 
-            className='w-6 h-6 text-blac cursor-pointer'
-            onClick={ () => {context.openCheckSideMenu()}}
+          {/* <ShoppingBagIcon
+            className='w-6 h-6 text-black cursor-pointer'
+            onClick={() => { context.openCheckSideMenu() }}
           >
-          </ShoppingBagIcon>
-          <div className='bg-green-600 w-6 h-6 border rounded-full text-center text-teal-50 '>
+          </ShoppingBagIcon> */}
+          <div className='bg-green-600 w-6 h-6 border border-green-600 rounded-full text-center text-teal-50 '>
             {context.productToCart.length}
           </div>
         </li>

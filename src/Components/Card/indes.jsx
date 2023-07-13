@@ -40,7 +40,7 @@ function Card({ data }) {
 
   return (
     <div
-      className='drop-shadow-2xl bg-white cursor-pointer w-56 h-60  rounded-lg'
+      className='shadow-xl bg-white cursor-pointer w-56 h-60 rounded-lg transform transition-transform hover:scale-110'
       onClick={() => showProduct(data)}
     >
       <figure className="relative mb-2 w-full h-4/5">
@@ -55,7 +55,7 @@ function Card({ data }) {
         {renderIcon(data.id)}
       </figure>
       <p className="flex justify-between">
-        <span className="text-sm font-light p-2">{data.title}</span>
+        <span className="text-sm font-light p-2 truncate max-w-full">{data.title}</span>
         <span className="text-lg font-medium p-2">${data.price}</span>
       </p>
     </div>

@@ -56,6 +56,11 @@ export const ShoppingCartProvider = ({ children }) => {
   //Search by category
   const [searchByCategory, setSearchByCategory] = useState(null)
 
+  //Changes theme
+  const [theme, setTheme] = useState('Light')
+
+  theme === 'Dark' ? document.body.style.backgroundColor = '#1E1E1F' : document.body.style.backgroundColor = '#F2F4F5'
+
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
       .then(response => response.json())
@@ -124,7 +129,9 @@ export const ShoppingCartProvider = ({ children }) => {
       account,
       setAccount,
       signOut,
-      setSignOut
+      setSignOut,
+      theme,
+      setTheme
     }}>
       {children}
     </ShoppingCartContext.Provider>
